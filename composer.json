@@ -1,0 +1,30 @@
+{
+    "name": "nnc/controls",
+    "description": "NNC Controls Package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zachary Nespral",
+            "email": "zac_nespral@nationalnail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "NNC\\Controls\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NNC\\Controls\\NNCControlsServiceProvider"
+            ],
+            "aliases": {
+                "NNC": "NNC\\Controls\\NNCControlsFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
