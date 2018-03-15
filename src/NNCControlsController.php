@@ -71,7 +71,7 @@ class NNCControlsController extends Seeder
     }
 
     //Careers Control
-    public function carrers_jobs(){
+    public function careers_jobs(){
         return DB::table('careers')->where('active', 1)->get();
     }
 
