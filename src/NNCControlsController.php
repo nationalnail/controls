@@ -53,6 +53,18 @@ class NNCControlsController extends Seeder
         return DB::connection('engine')->table('states')->where('active', 1)->get();
     }
 
+    public function engine_data_cities(){
+        return DB::connection('engine')->table('cities')->where('active', 1)->get();
+    }
+
+    public function engine_data_counties(){
+        return DB::connection('engine')->table('counties')->where('active', 1)->get();
+    }
+
+    public function engine_data_countries(){
+        return DB::connection('engine')->table('countries')->where('active', 1)->get();
+    }
+
     //AWS S3/CoudFront Functions
     public function aws_get_files(){
         return Storage::disk('s3')->allFiles();
@@ -81,7 +93,7 @@ class NNCControlsController extends Seeder
         return DB::connection('engine')->table('legal')->where('type', 'pri')->where('app', env('GIT_DEPLOY_FOLDER'))->where('active', 1)->get();
     }
 
-    //News Control
+    //News & Media Control
     public function news_ads(){
         return DB::table('ads')->where('active', 1)->get();
     }
@@ -92,6 +104,18 @@ class NNCControlsController extends Seeder
 
     public function news_pressreleases(){
         return DB::table('pressreleases')->where('active', 1)->get();
+    }
+
+    public function news_broadcasts(){
+        return DB::table('broadcasts')->where('active', 1)->get();
+    }
+
+    public function news_videos(){
+        return DB::table('videos')->where('active', 1)->get();
+    }
+
+    public function news_socialmedia(){
+        return DB::table('socialmedia')->where('active', 1)->get();
     }
 
     //GMaps Control
