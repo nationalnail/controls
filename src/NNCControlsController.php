@@ -102,6 +102,10 @@ class NNCControlsController extends Seeder
         return DB::table('articles')->where('active', 1)->get();
     }
 
+    public function news_events(){
+        return DB::table('events')->where('active', 1)->get();
+    }
+
     public function news_pressreleases(){
         return DB::table('pressreleases')->where('active', 1)->get();
     }
