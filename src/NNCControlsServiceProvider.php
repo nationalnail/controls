@@ -17,6 +17,7 @@ class NNCControlsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/assets' => public_path('vendor/nationalnail'),
         ], 'public');
+        include __DIR__.'/Routes.php';
     }
 
     /**
@@ -26,7 +27,6 @@ class NNCControlsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__.'/Routes.php';
         $this->app->bind('nnc', function() {
             return new NNCControlsController;
         });

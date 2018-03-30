@@ -124,7 +124,7 @@ class NNCControlsController extends Seeder
 
     //GMaps Control
     public function gmap_nnc_locations(){
-        return DB::table('locations')->where('active', 1)->get();
+        return DB::connection('engine')->table('locations')->where('active', 1)->get();
     }
 
     public function gmap_rgeolocation($address){
