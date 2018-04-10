@@ -115,7 +115,7 @@ class NNCControlsController extends Seeder
     }
 
     public function news_videos(){
-        return DB::table('videos')->where('active', 1)->get();
+        return DB::table('videos')->where('active', 1)->orderBy('date', 'desc')->get();
     }
 
     public function news_socialmedia(){
