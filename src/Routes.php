@@ -50,6 +50,7 @@ Route::post('/locator/getdata', function(Request $request){
         DB::connection('dealerlocator')->table('dealers_meta')->insert(
             [
                 'created_date' => date("Y-m-d H:i:s"),
+                'app' => env('GIT_DEPLOY_FOLDER'),
                 'address' => str_replace('+', ' ', $address),
                 'state' => $state,
                 'country' => $country,
