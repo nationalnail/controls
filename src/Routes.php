@@ -38,7 +38,7 @@ Route::get('/locator', function(){
 })->name('Dealer Locator');
 
 Route::post('/locator/getdata', function(Request $request){
-    //return $request->input('params.brand');
+    $app_url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $address = $request->input('params.address');
     $radius = $request->input('params.radius');
     $brand = $request->input('params.brand');
@@ -50,7 +50,7 @@ Route::post('/locator/getdata', function(Request $request){
         DB::connection('dealerlocator')->table('dealers_meta')->insert(
             [
                 'created_date' => date("Y-m-d H:i:s"),
-                'app' => env('GIT_DEPLOY_FOLDER'),
+                'app' => $app_url,
                 'address' => str_replace('+', ' ', $address),
                 'state' => $state,
                 'country' => $country,
