@@ -65,6 +65,15 @@ class NNCControlsController extends Seeder
         return DB::connection('engine')->table('countries')->where('active', 1)->get();
     }
 
+    public function engine_data_email_system($app, $page){
+        $email_system = DB::connection('engine')->table('email_system')->where('active', 1)->where('app', $app)->where('page', $page)->select('email')->get();
+        $emails = [];
+        foreach ($email_system as $key) {
+            $emails[] .= $key->email;
+        }
+        return $emails;
+    }
+
     //AWS S3/CoudFront Functions
     public function aws_get_files(){
         return Storage::disk('s3')->allFiles();
@@ -206,5 +215,46 @@ class NNCControlsController extends Seeder
         $recaptcha_data = json_decode($json, TRUE);
 
         return $recaptcha_data['success'];
+    }
+
+    //BootStrap Elements Functions
+    public function boot_form($type,$id,$method,$colsize,$rowid){
+        if($method == 'start'){
+            $output = '<form class="container" method="' . $type . '" id="' . $id . '-form"><fieldset>';
+            $output .= '<input type="hidden" class="form-control" id="rowid" name="rowid" value="' . $rowid . '">';
+            return $output;
+        }elseif($method == 'end'){
+            $response = '<div class="row pt-2"><div class="col-md-' . ($colsize == '' ? '6' : $colsize) . ' mx-auto"><div class="response"></div></div></div>';
+            $output = '</fieldset></form>';
+            return $output;
+        }
+    }
+    public function boot_label($for,$req,$content){
+        $output = '<label for="' . $for . '">' . $content . ' ' . ($req == 'yes' ? '<span class="text-danger">*</span>' : '') . '</label>';
+        return $output;
+    }
+    public function boot_input($type,$idattr,$name,$val,$req){
+        $output = '<input type="' . $type . '" class="form-control" id="' . $idattr . '" name="' . $name . '" value="' . $val . '" ' . ($req == 'yes' ? 'required' : '') . '>';
+        return $output;
+    }
+    public function boot_select($idattr,$name,$req,$options){
+        $output = '<select class="custom-select" name="' . $name . '" ' . ($req == 'yes' ? 'required' : '') . '>' . $options . '</select>';
+        return $output;
+    }
+    public function boot_active_select($idattr,$name,$req,$active){
+        $output = '<select class="custom-select" name="' . $name . '" ' . ($req == 'yes' ? 'required' : '') . '><option>--SELECT--</option><option value="1" ' . ($active == 1 ? 'selected' : '') . '>Yes</option><option value="0" ' . ($active == 0 ? 'selected' : '') . '>No</option></select>';
+        return $output;
+    }
+    public function boot_textarea($idattr,$rowcount,$name,$req,$text){
+        $output = '<textarea class="form-control" id="' . $idattr . '" name="' . $name . '" rows="' . $rowcount . '" ' . ($req == 'yes' ? 'required' : '') . '>' . $text . '</textarea>';
+        return $output;
+    }
+    public function boot_row($class,$content){
+        $output = '<div class="row ' . $class . '">' . $content .'</div>';
+        return $output;
+    }
+    public function boot_col($type,$size,$class,$content){
+        $output = '<div class="col-' . $type . '-' . $size . '' . ($class != '' ? $class : '') . '">' . $content .'</div>';
+        return $output;
     }
 }
