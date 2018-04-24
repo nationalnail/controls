@@ -42,7 +42,7 @@ Route::post('/contact/locations', function(){
     return DB::table('locations')->where('active', 1)->get();
 });
 
-Route::post('/contact-us/submit', function(){
+Route::post('/contact-us/submit', function(Request $request){
         $name = $request->input('name');
         $phone = $request->input('phone');
         $address = $request->input('address');
