@@ -32,6 +32,60 @@ Route::post('/feedback/submit', function(){
     return response()->json(['success' => 'false']);
 });
 
+//Contact Form Routes
+Route::get('/contact-us', function(){
+    $locationdata = NNC::gmap_nnc_locations();
+    return view('company.contact', ['locations' => $locationdata]);
+})->name('Contact Us');
+
+Route::post('/contact/locations', function(){
+    return DB::table('locations')->where('active', 1)->get();
+});
+
+Route::post('/contact-us/submit', function(){
+        $name = $request->input('name');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        $city = $request->input('city');
+        $state = $request->input('state');
+        $zip = $request->input('zip');
+        $email = $request->input('email');
+        $company = $request->input('company');
+        $about = $request->input('about');
+        $message = $request->input('message');
+        $recaptcha = $request->input('g-recaptcha-response');
+        if ($request->isMethod('POST')){
+            $gcapverify = NNC::recaptcha_verification($recaptcha);
+            $emails = NNC::engine_data_email_system(env('GIT_DEPLOY_FOLDER'), 'contact');
+
+            if($gcapverify == true){
+                $data = [
+                    'subject'=> 'Contact Form Submission',
+                    'phone' => $phone,
+                    'address' => $address,
+                    'city' => $city,
+                    'state' => $state,
+                    'zip' => $zip,
+                    'company' => $company,
+                    'about' => $about,
+                    'email' => $email,
+                    'name' => $name,
+                    'message'=> $message,
+                    'button' => 'Respond',
+                    'type' => 'Contact Form'
+                ];
+
+                Mail::to($emails)->send(new ContactUs($data));
+                return response()->json(['success' => 'true', 'message' => '<div class="alert alert-success"><i class="fa fa-check fa-2x success"></i>  Your message was successfully sent!</div>']);
+            }else{
+                return response()->json(['success' => 'false', 'message' => '<div class="alert alert-danger">Your message failed, please verify you are not a robot and try again.</div>']);
+            }
+        }else{
+            return response()->json(['success' => 'false', 'message' => '<div class="alert alert-danger">Your message failed, please check your text and try again.</div>']);
+        }
+        return 'Total Failure';
+});
+
 //Dealer Locator Routes
 Route::get('/locator', function(){
     return view('company.locator');
