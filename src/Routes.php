@@ -32,16 +32,6 @@ Route::post('/feedback/submit', function(){
     return response()->json(['success' => 'false']);
 });
 
-//Contact Form Routes
-Route::get('/contact-us', function(){
-    $locationdata = NNC::gmap_nnc_locations();
-    return view('company.contact', ['locations' => $locationdata]);
-})->name('Contact Us');
-
-Route::post('/contact/locations', function(){
-    return DB::table('locations')->where('active', 1)->get();
-});
-
 //Dealer Locator Routes
 Route::get('/locator', function(){
     return view('company.locator');
