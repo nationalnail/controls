@@ -112,16 +112,16 @@ class NNCControlsController extends Seeder
     }
 
     public function news_events(){
-        $data = DB::table('events')
-            ->where('active', 1)
-            ->get();
+        $data = DB::table('events')->where('active', 1)->get();
         if(!empty($data)){
-            if($data->dateEnd > date('Y-m-d')){
-                return DB::table('events')->where('active', 1)->orderBy('dateStart', 'asc')->get();
-            }elseif($data->dateEnd < date('Y-m-d')){
-                DB::table('events')->where('id', '=', $data->id)->update([
-                    'active' => 0
-                ]);
+            foreach($data as $key) {
+                if($key->date_end > date('Y-m-d')){
+                    return DB::table('events')->where('active', 1)->orderBy('date_start', 'asc')->get();
+                }elseif($key->date_end < date('Y-m-d')){
+                    DB::table('events')->where('id', '=', $data->id)->update([
+                        'active' => 0
+                    ]);
+                }
             }
         }
     }
