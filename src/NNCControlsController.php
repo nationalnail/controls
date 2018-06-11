@@ -126,6 +126,10 @@ class NNCControlsController extends Seeder
         }
     }
 
+    public function news_literature(){
+        return DB::table('literature')->where('active', 1)->get();
+    }
+
     public function news_pressreleases(){
         return DB::table('pressreleases')->where('active', 1)->orderBy('date', 'desc')->get();
     }
