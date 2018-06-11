@@ -116,9 +116,9 @@ class NNCControlsController extends Seeder
             ->where('active', 1)
             ->get();
         if(!empty($data)){
-            if($data->date_end > date('Y-m-d')){
+            if($data->dateEnd > date('Y-m-d')){
                 return DB::table('events')->where('active', 1)->orderBy('date_start', 'asc')->get();
-            }elseif($data->date_end < date('Y-m-d')){
+            }elseif($data->dateEnd < date('Y-m-d')){
                 DB::table('events')->where('id', '=', $data->id)->update([
                     'active' => 0
                 ]);
