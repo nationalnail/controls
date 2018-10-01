@@ -10,7 +10,7 @@ Route::get('/git/deploy/{key}', function($key){
 });
 
 //Feedback Control POST
-Route::post('/feedback/submit', function(){
+Route::post('/feedback/submit', function(Request $request){
     $location = $request->input('class');
     $response = $request->input('response');
     if($response == 'thumbs-up'){
