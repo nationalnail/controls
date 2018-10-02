@@ -13,7 +13,7 @@ Route::get('/git/deploy/{key}', function($key){
 Route::post('/feedback/submit', function(Request $request){
     $location = $request->input('class');
     $response = $request->input('response');
-    $custom_id = $request->input('custom_id');
+    $custom_id = $request->input('customid');
     if($response == 'thumbs-up'){
         $response = 1;
     }elseif ($response == 'thumbs-down') {
