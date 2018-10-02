@@ -13768,9 +13768,9 @@ __webpack_require__(17);
                 },
                 success: function success(response) {
                     if (response.success == 'false') {
-                        feedback.hide().html('Sorry something went wrong!').fadeIn('slow');
+                        $(this).hide().html('Sorry something went wrong!').fadeIn('slow');
                     } else if (response.success == 'true') {
-                        feedback.hide().html('Thank you for your feedback!').fadeIn('slow');
+                        $(this).hide().html('Thank you for your feedback!').fadeIn('slow');
                     }
                 }
             });
