@@ -13,6 +13,7 @@ Route::get('/git/deploy/{key}', function($key){
 Route::post('/feedback/submit', function(Request $request){
     $location = $request->input('class');
     $response = $request->input('response');
+    $custom_id = $request->input('custom_id');
     if($response == 'thumbs-up'){
         $response = 1;
     }elseif ($response == 'thumbs-down') {
@@ -25,6 +26,7 @@ Route::post('/feedback/submit', function(Request $request){
                 'created_date' => date("Y-m-d H:i:s"),
                 'feedback_page' => $location,
                 'response' => $response,
+                'custom_id' => $custom_id
             ]
         );
         return response()->json(['success' => 'true']);
