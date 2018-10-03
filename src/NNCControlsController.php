@@ -108,7 +108,11 @@ class NNCControlsController extends Seeder
     }
 
     public function news_articles(){
-        return DB::table('articles')->where('active', 1)->orderBy('date', 'desc')->get();
+        return DB::connection('engine')
+        ->table('articles')
+        ->where('active', 1)
+        ->orderBy('date', 'desc')
+        ->get();
     }
 
     public function news_events(){
